@@ -1,6 +1,6 @@
 [project]
 name = "avela-tuner"
-version = "0.1.0.dev0"
+version = "1.0.0"
 description = "Avela tuner: set up an Avela radio over USB, from a terminal UI (urwid) or the command line (settings, dump and restore)"
 readme = "README.md"
 license = "MIT"
