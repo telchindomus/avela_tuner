@@ -1,0 +1,10 @@
+__pycache__/
+*.egg-info/
+dist/
+.venv/
+build/
+cicd/.env
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+CLAUDE.local.md

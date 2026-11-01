@@ -1,0 +1,55 @@
+[project]
+name = "avela-tuner"
+version = "0.1.0.dev0"
+description = "Avela tuner: set up an Avela radio over USB, from a terminal UI (urwid) or the command line (settings, dump and restore)"
+readme = "README.md"
+license = "MIT"
+authors = [{ name = "Telchin Domus", email = "contact@telchindomus.com" }]
+requires-python = ">=3.11,<3.15"
+dependencies = [
+    "pyserial>=3.5",
+    "urwid>=2.6",
+]
+
+[project.scripts]
+avela-tuner = "avela_tuner.cli:main"
+
+[tool.poetry]
+packages = [{ include = "avela_tuner", from = "src" }]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+# Explicit, so the check doesn't change with ruff's growing default set: pyflakes, pycodestyle, isort, pyupgrade,
+# bugbear.
+select = ["E", "F", "W", "I", "UP", "B"]
+
+[tool.mypy]
+strict = true
+files = ["src"]
+
+[[tool.mypy.overrides]]
+module = ["serial", "serial.*"]  # pyserial ships no type hints
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["tests"]
+
+[tool.taskipy.tasks]
+check = "ruff check && ruff format --check && mypy && pytest -q"
+format = "ruff format && ruff check --fix"
+build = "poetry build"
+
+[dependency-groups]
+dev = [
+    "ruff",
+    "mypy",
+    "pytest",
+    "taskipy",
+]
